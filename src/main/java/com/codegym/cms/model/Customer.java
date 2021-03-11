@@ -20,7 +20,7 @@ public class Customer  {
 @NotEmpty
 @Size(min = 2,max = 30,message = "size 2-30")
 @Email(regexp = "^(?=[a-z]*_*[a-z]*\\d_*)[a-z0-9]{6,20}@[a-z0-9]+(\\.[a-z0-9]+)$",
-       message = "không đúng định dạng email lòng nhập ít nhất 1 ký tự số và độ dài khoảng 6-20")
+       message = "khong dung dinh dang email vui long nhap it nhat 1 ky tu so va do dai tu 6-20")
     private String firstName;
     private String lastName;
 

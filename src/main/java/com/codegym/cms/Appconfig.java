@@ -1,5 +1,6 @@
 package com.codegym.cms;
 
+import com.codegym.cms.aspect.Logger;
 import com.codegym.cms.service.CustomerService;
 import com.codegym.cms.service.ProvinceService;
 import com.codegym.cms.service.impl.CustomerServiceImpl;
@@ -11,6 +12,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -37,8 +39,9 @@ import java.util.Properties;
 @EnableWebMvc
 @EnableJpaRepositories("com.codegym.cms.repository")
 @EnableTransactionManagement
-@ComponentScan("com.codegym.cms")
+@ComponentScan("com.codegym.cms.controller")
 @EnableSpringDataWebSupport
+@EnableAspectJAutoProxy
 public class Appconfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
 
     private ApplicationContext applicationContext;
@@ -58,6 +61,7 @@ public class Appconfig extends WebMvcConfigurerAdapter implements ApplicationCon
     public ProvinceService provinceService() {
         return new ProvinceServiceImpl();
     }
+
     @Bean
     public SpringResourceTemplateResolver templateResolver() {
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
@@ -90,7 +94,7 @@ public class Appconfig extends WebMvcConfigurerAdapter implements ApplicationCon
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory(){
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
         em.setPackagesToScan(new String[]{"com.codegym.cms.model"});
@@ -109,7 +113,7 @@ public class Appconfig extends WebMvcConfigurerAdapter implements ApplicationCon
     }
 
     @Bean
-    public DataSource dataSource(){
+    public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost:3306/cms?useSSL=false");
@@ -123,6 +127,11 @@ public class Appconfig extends WebMvcConfigurerAdapter implements ApplicationCon
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(entityManagerFactory);
         return transactionManager;
+    }
+
+    @Bean
+    public Logger logger() {
+        return new Logger();
     }
 
 }

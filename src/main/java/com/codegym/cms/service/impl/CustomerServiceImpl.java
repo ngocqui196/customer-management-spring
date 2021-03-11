@@ -42,6 +42,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer findById(Long id) {
         return repository.findOne(id);
+
     }
 
     @Override

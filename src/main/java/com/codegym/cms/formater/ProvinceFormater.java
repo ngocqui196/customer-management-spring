@@ -21,11 +21,13 @@ public class ProvinceFormater implements Formatter<Province> {
     }
 
     @Override
-    public Province parse(String text, Locale locale) throws ParseException {
+    public Province parse(String text, Locale locale){
         Province province = new Province();
         try {
             province = provinceService.findById(Long.parseLong(text));
         } catch (NumberFormatException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return province;
