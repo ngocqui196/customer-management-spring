@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Customer</title>
+</head>
+<body>
+    <h1>Delete Customer</h1>
+    <a href="/customers">Comback List Customer</a>
+    <form th:action="@{/customers/delete}" th:object="${customer}" method="post">
+        <table>
+            <input type="hidden" th:field="*{id}">
+            <tr>
+                <td>First Name :</td>
+                <td><span th:text="*{firstName}"></span></td>
+            </tr>
+            <tr>
+                <td>Last Name :</td>
+                <td><span th:text="*{lastName}"></span></td>
+            </tr>
+            <tr>
+                <td>Province :</td>
+                <td><span th:text="${customer.province.name}"></span></td>
+            </tr>
+        </table>
+        <h5 style="color: red">bạn có chắc chắn muốn xoá!</h5>
+        <input type="submit" value="OK">
+    </form>
+</body>
+</html>

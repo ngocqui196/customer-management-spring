@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+    <span th:text="${message} ? ${message} : '' "></span>
+    <form>
+        <p>Search by first name: </p>
+        <input type="text" name="s" th:value="${keyword}">
+        <input type="submit" value="Search">
+    </form>
+    <br>
+    <h1>List Customers</h1>
+    <a href="/provinces/create" style="color: chartreuse">Create Province. Click in here</a>
+        <table border="1" style="color: red">
+            <tr>
+
+                <th>Province Name</th>
+                <th></th>
+                <th></th>
+            </tr>
+
+            <th:block th:each="province : ${listProvince}">
+                <tr>
+                    <td th:text="${province.name}"></td>
+                    <td><a th:href="@{/provinces/edit/__${province.getId()}__}">Edit</a></td>
+                    <td><a th:href="@{/provinces/delete/__${province.getId()}__}">Delete</a></td>
+                </tr>
+            </th:block>
+        </table>
+
+
+</body>
+</html>
